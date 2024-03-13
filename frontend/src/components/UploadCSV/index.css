@@ -1,0 +1,8 @@
+.upload-csv {
+  background-color: lightblue;
+  background-size: cover;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
