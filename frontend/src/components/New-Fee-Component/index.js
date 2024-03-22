@@ -13,7 +13,7 @@ const firstYear = [
     tabId: "1st btech",
     feeId: "F102",
     feeName: "Hostel Fee",
-    Amount: "36000",
+    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
   },
 
   {
@@ -26,7 +26,7 @@ const firstYear = [
     tabId: "2nd btech",
     feeId: "F202",
     feeName: "Hostel Fee",
-    Amount: "36000",
+    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
   },
 
   {
@@ -39,7 +39,7 @@ const firstYear = [
     tabId: "3rd btech",
     feeId: "F302",
     feeName: "Hostel Fee",
-    Amount: "36000",
+    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
   },
 
   {
@@ -52,7 +52,7 @@ const firstYear = [
     tabId: "4th btech",
     feeId: "F402",
     feeName: "Hostel Fee",
-    Amount: "36000",
+    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
   },
 ];
 
@@ -65,6 +65,7 @@ class FeesForm extends Component {
     feesData: [], // Array of fees data based on tabs
     activeYear: "1st btech",
     render: 0,
+    payments: [],
   };
 
   handleChange = (event) => {
@@ -81,6 +82,17 @@ class FeesForm extends Component {
     const updatedData = feesResponseData.map((fees) => ({
       feeId: fees.fee_id,
     }));
+
+    fetch(`http://localhost:4000/payments/${rollNumber}`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        const { data } = responseData;
+        this.setState({ payments: data });
+        console.log(data)
+      })
+      .catch((error) => {
+        console.error("Error fetching payment details:", error);
+      });
 
     try {
       const response = await fetch(apiUrl);
@@ -179,8 +191,8 @@ class FeesForm extends Component {
   };
 
   feesComponent = () => {
-    const { studentDetails, activeYear, feesData, feesTab } = this.state;
-
+    const { studentDetails, activeYear, feesData, feesTab,payments } = this.state;
+    
     if (!studentDetails) {
       return (
         <div style={{ textAlign: "center" }}>
@@ -214,7 +226,7 @@ class FeesForm extends Component {
       }
       return arr; // Return the updated object
     });
-
+    
     return (
       <div className="student-details-container">
         <div className="student-details">
@@ -313,7 +325,7 @@ class FeesForm extends Component {
                 <tr key={fees.feeId} className="fees-row">
                   <td>{fees.feeId}</td>
                   <td>{fees.feeName}</td>
-                  <td>{fees.Amount}</td>
+                  <td>{fees.Amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}</td>
                   <td>
                     {feesData.find((fee) => fee.feeId === fees.feeId) ? (
                       <button
@@ -337,7 +349,38 @@ class FeesForm extends Component {
               ))}
             </tbody>
           </table>
+           
+          <h2>Penalities</h2>
+
+          <div className="fees-table">
+              
+              <table>
+                <thead>
+                  <tr>
+                    <th>S.NO</th>
+                    <th>Fee Name</th>
+                    <th>Due Amount</th>
+                    <th>Paid Amount</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {payments.map((payment, index) => (
+                    <tr key={payment.id}>
+                      <td>{index + 1}</td>
+                      <td>{payment.semester_fee_name}</td>
+                      <td>{payment.committee_amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })} </td>
+                      <td>{payment.paid_amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}</td>
+                      
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+           
         </div>
+
+       
       </div>
     );
   };

@@ -35,11 +35,11 @@ class CsvUpload extends Component {
   render() {
     return (
       <div className="upload-csv">
-        <div>
-          <h2>Upload CSV File</h2>
+        <div className="upload-data">
+          <h2>Upload Students Data</h2>
           <input type="file" accept=".csv" onChange={(e) => this.handleFileUpload(e, "csv")} />
         </div>
-        <div>
+        <div className="upload-data">
           <h2>Upload Fee Data</h2>
           <input type="file" accept=".csv" onChange={(e) => this.handleFileUpload(e, "fee_data")} />
         </div>

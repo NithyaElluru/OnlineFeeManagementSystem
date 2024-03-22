@@ -111,7 +111,7 @@ class StudentForm extends Component {
                 <td className="form-cell">
                   <input
                     className="form-input-2106"
-                    type="text"
+                    type="number"
                     name="phoneNumber"
                     value={phoneNumber}
                     onChange={this.handleChange}

@@ -85,28 +85,41 @@ app.put("/add-new-students", async (req, res) => {
   } = req.body;
 
   try {
-    const stmt = await db.run(
-      `INSERT INTO 
-        student_info (name, rollnumber, department, semester, phoneNumber, isConveyor, email, password, gender) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        name,
-        rollnumber,
-        department,
-        semester,
-        phoneNumber,
-        isConveyor,
-        email,
-        password,
-        gender,
-      ]
+    // Check if the rollnumber or name already exists
+    const existingStudent = await db.get(
+      `SELECT * FROM student_info WHERE rollnumber = ? OR name = ?`,
+      [rollnumber, name]
     );
-    res.send("added successfully");
+
+    if (existingStudent) {
+      // If the student with the same rollnumber or name exists, send a message and don't allow insertion
+      res.status(400).send("Student with the same rollnumber or name already exists");
+    } else {
+      // If the student doesn't exist, proceed with insertion
+      const stmt = await db.run(
+        `INSERT INTO 
+          student_info (name, rollnumber, department, semester, phoneNumber, isConveyor, email, password, gender) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          name,
+          rollnumber,
+          department,
+          semester,
+          phoneNumber,
+          isConveyor,
+          email,
+          password,
+          gender,
+        ]
+      );
+      res.send("Student added successfully");
+    }
   } catch (error) {
     console.error("Error adding student:", error);
     res.status(500).send("Error adding student");
   }
 });
+
 
 app.put("/add-fees", async (req, res) => {
   const { rollNumber, tabId, feeId, feeName, Amount } = req.body;

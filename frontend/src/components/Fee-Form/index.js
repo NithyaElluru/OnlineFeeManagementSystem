@@ -68,11 +68,15 @@ class PaymentForm extends Component {
   };
 
   render() {
-    const { rollNumber, semesterFeeName, committeeAmount } = this.state;
+    const { rollNumber, semesterFeeName, committeeAmount, } = this.state;
     return (
       <>
         <div className="form-container-1">
           <h2 className="form-title">Student Penalty Form</h2>
+          
+
+       
+
           <form onSubmit={this.handleSubmit} className="form">
             <table>
               <tbody>

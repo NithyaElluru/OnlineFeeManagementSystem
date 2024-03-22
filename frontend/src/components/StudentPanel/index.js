@@ -191,18 +191,24 @@ class StudentPanel extends Component {
       department,
       isConveyor,
     } = studentDetails;
+    
+    
 
-    const studentFields = [
-      { label: "Name", value: name },
-      { label: "Roll Number", value: rollnumber },
-      { label: "Phone Number", value: phoneNumber },
-      { label: "Email", value: email },
-      { label: "Seat Type", value: isConveyor },
-      { label: "Department", value: department },
-      { label: "Semester", value: semester },
-      { label: "Total Fee Due", value: totalDue },
-      { label: "Fines", value: fineDue },
-    ];
+    const formattedTotalDue = totalDue.toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
+  const formattedFineDue = fineDue.toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
+
+  const studentFields = [
+    { label: "Name", value: name },
+    { label: "Roll Number", value: rollnumber },
+    { label: "Phone Number", value: phoneNumber },
+    { label: "Email", value: email },
+    { label: "Seat Type", value: isConveyor },
+    { label: "Department", value: department },
+    { label: "Semester", value: semester },
+    { label: "Total Fee Due", value: formattedTotalDue },
+    { label: "Fines", value: formattedFineDue },
+  ];
+
 
     return (
       <div className="std-dd-1">
@@ -257,7 +263,7 @@ class StudentPanel extends Component {
                 onClick={this.onClickPayFee}
                 className="sidebar-button"
               >
-                Payments
+                Pay
               </button>
               <button onClick={this.onClickFines} className="sidebar-button">
                 Pay Fines
