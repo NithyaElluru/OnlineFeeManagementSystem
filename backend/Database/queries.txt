@@ -4,7 +4,7 @@
 
 SELECT * FROM student_info;
 
-
 PRAGMA foreign_keys = OFF;
+
 
 

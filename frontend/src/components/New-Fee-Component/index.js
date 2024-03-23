@@ -13,7 +13,7 @@ const firstYear = [
     tabId: "1st btech",
     feeId: "F102",
     feeName: "Hostel Fee",
-    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
+    Amount: "36000",
   },
 
   {
@@ -26,7 +26,7 @@ const firstYear = [
     tabId: "2nd btech",
     feeId: "F202",
     feeName: "Hostel Fee",
-    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
+    Amount: "36000",
   },
 
   {
@@ -39,7 +39,7 @@ const firstYear = [
     tabId: "3rd btech",
     feeId: "F302",
     feeName: "Hostel Fee",
-    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
+    Amount: "36000",
   },
 
   {
@@ -52,7 +52,7 @@ const firstYear = [
     tabId: "4th btech",
     feeId: "F402",
     feeName: "Hostel Fee",
-    Amount: parseInt(36000).toLocaleString('en-IN', { style: 'currency', currency: 'INR' }),
+    Amount: "36000",
   },
 ];
 
@@ -325,7 +325,7 @@ class FeesForm extends Component {
                 <tr key={fees.feeId} className="fees-row">
                   <td>{fees.feeId}</td>
                   <td>{fees.feeName}</td>
-                  <td>{fees.Amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}</td>
+                  <td>{fees.Amount}</td>
                   <td>
                     {feesData.find((fee) => fee.feeId === fees.feeId) ? (
                       <button
@@ -369,8 +369,8 @@ class FeesForm extends Component {
                     <tr key={payment.id}>
                       <td>{index + 1}</td>
                       <td>{payment.semester_fee_name}</td>
-                      <td>{payment.committee_amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })} </td>
-                      <td>{payment.paid_amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}</td>
+                      <td>{payment.committee_amount} </td>
+                      <td>{payment.paid_amount}</td>
                       
                     </tr>
                   ))}

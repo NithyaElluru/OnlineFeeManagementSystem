@@ -12,8 +12,9 @@ class StudentPanel extends Component {
     fineDue: 0,
     view: "std-dashboard",
     currentDate: new Date().toLocaleDateString("en-US", {
-      month: "numeric",
       day: "numeric",
+      month: "numeric",
+      
       year: "numeric",
     }),
   };
